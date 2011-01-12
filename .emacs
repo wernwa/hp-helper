@@ -44,9 +44,9 @@
 ;;fuer die Zwischenablage, genau so wie bei den meisten
 ;;Anwendungen auch.
 ;;(cua-mode t)
-(global-set-key "\s-y" 'clipboard-kill-region)
-(global-set-key "\s-c" 'clipboard-kill-ring-save)
-(global-set-key "\s-v" 'clipboard-yank)
+(global-set-key (kbd "s-x") 'clipboard-kill-region)
+(global-set-key (kbd "s-c") 'clipboard-kill-ring-save)
+(global-set-key (kbd "s-v") 'clipboard-yank)
 
 
 ;;Bewirkt dass die standard Zwischenablage benutzt wird.
