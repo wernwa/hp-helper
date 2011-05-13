@@ -1,0 +1,165 @@
+;;
+;;*******************************************************************************
+;;************************** Allgemein zum Aussehen *****************************
+;;*******************************************************************************
+
+
+(setq locale-coding-system 'utf-8)
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+(set-selection-coding-system 'utf-8)
+(prefer-coding-system 'utf-8)
+
+;;Zeige den Namen des aktuellen Buffers in der Fensterleiste
+(setq frame-title-format '("%b" (buffer-file-name ": %f")))
+
+;;Hier setze ich die Schriftart: "DejaVu Sans Mono" als Standardschriftart.
+;;Siehe auch "faces.el"
+;(set-face-attribute 'default nil 
+;		    :family "DejaVu Sans Mono"  ;Schrifttyp 
+;		    :foundry "unknown"          ;Hersteller der Schrift
+;		    :width 'normal              ;Breite. Es geht auch: expanded, ... 
+;		    :height 105                 ;Entspricht "DejaVu Sans Mono-10,5"
+;		    :weight 'normal             ;Dicke. Es geht auch: bold, light, ...
+;		    :slant 'normal)             ;Typ. Es geht auch: italic, oblique, ..
+
+;;Unterdruecke den Startbildschirm.
+(setq inhibit-startup-message t)
+
+;;Setze sie Scrolleiste an die rechte Seite.
+(set-scroll-bar-mode 'right)
+
+
+;;*******************************************************************************
+;;************************* Allgemein zum Verhalten *****************************
+;;*******************************************************************************
+
+;;Setze das "Home" Verzeichnus, als standard Verzeichnis.
+(setq default-directory "~/")
+
+;; nicht beim Runterscrollen staendig den Cursor in die Bildmitte setzen
+(setq scroll-conservatively 1)
+
+;;Nutze die Tastenkombinationen: C-c, C-v, C-x
+;;fuer die Zwischenablage, genau so wie bei den meisten
+;;Anwendungen auch.
+;;(cua-mode t)
+(global-set-key (kbd "s-x") 'clipboard-kill-region)
+(global-set-key (kbd "s-c") 'clipboard-kill-ring-save)
+(global-set-key (kbd "s-v") 'clipboard-yank)
+
+
+;;Bewirkt dass die standard Zwischenablage benutzt wird.
+;(setq x-select-enable-clipboard t)
+;(setq interprogram-paste-function 'x-cut-buffer-or-selection-value)
+
+;;Aktiviere parentheses matching highlighting.
+(require 'paren)
+(show-paren-mode t)
+
+;; Markierte Textbereiche farbig anzeigen.
+(setq transient-mark-mode t)
+
+;;Setzen der standard Zeilenbreite auf 80 Zeichen.
+(setq-default fill-column 10000000)
+
+
+;;Setze die deutsche Sprache als Standardsprache
+;;fuer die Rechtschreibkorrektur.
+;;Achtung!!! nicht getestet.
+;(setq ispell-local-dictionary "de_DE")
+
+
+;;*******************************************************************************
+;;************************* Slime Emacs Erweiterung *****************************
+;;*******************************************************************************
+;;SLIME steht fuer: Superior Lisp Interaction Mode for Emacs.
+
+;(setq inferior-lisp-program "/usr/bin/clisp")
+;(add-to-list 'load-path "~/Projekte/Emacs_Erweiterungen/slime")
+;(require 'slime)
+;(slime-setup)
+
+
+;;*******************************************************************************
+;;************************* AucTeX Emacs Erweiterung ****************************
+;;*******************************************************************************
+;;(load "auctex.el" nil t t)
+;;(load "preview-latex.el" nil t t)
+;;(add-hook 'LaTeX-mode-hook 'turn-on-reftex)
+;;(add-hook 'LaTeX-mode-hook 'flyspell-mode)
+
+;;For Auctex < 11.82 exchange ";;" in the following 2 lines
+;;(require 'tex-site)
+(add-to-list 'load-path "/media/DISK/uni/auctex-11.86/")
+(add-to-list 'load-path "/media/DISK/uni/auctex-11.86/preview/")
+
+(load "auctex.el" nil t t)
+(load "preview-latex.el" nil t t)
+(setq TeX-auto-save t)
+(setq TeX-parse-self t)
+(setq TeX-PDF-mode t) ;; .pdf statt .dvi per default:
+(setq TeX-view-program-list '(("Kpdf" "kpdf %o")))  ;; PDF Viewer
+(setq TeX-view-program-selection '((output-pdf "Kpdf")))
+;;Zeilenumbruch
+(add-hook 'LaTeX-mode-hook 'turn-on-auto-fill)
+;;Syntax Higlight
+(add-hook 'LaTeX-mode-hook 'turn-on-font-lock)
+;; Mathe Modus
+(add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
+;; Reftex einflechten und laden
+(setq reftex-plug-into-AUCTeX t)
+(add-hook 'LaTeX-mode-hook 'turn-on-reftex)
+;; Satzende ". " statt ". ". " f¨ur M-k: l¨oschen bis Satzende usw.
+(setq sentence-end "[.?!][]\"’)}]*\\($\\| \\| \\)[
+;;]*") ;; Da ist ein "Newline in der Zeile!"
+(setq sentence-end-double-space nil)
+;;direkte Rechtschreib Korrektur:
+(add-hook 'LaTeX-mode-hook 'flyspell-mode)
+;; Nur benutzen falls Auctex > 11.81 mit preview-latex:
+;;(load "preview-latex.el" nil t t)
+;; aspell ist besser als ispell.
+;; Zeile kommentieren, falls nicht installiert:
+(setq-default ispell-program-name "aspell")
+;; Deutsche Rechtschreibung falls \usepackage{ngerman}
+;; oder german benutzt wird
+(add-hook 'TeX-language-de-hook
+(function (lambda () (ispell-change-dictionary "german8"))))
+
+
+
+(custom-set-variables
+  ;; custom-set-variables was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ '(preview-default-option-list (quote ("displaymath" "floats" "graphics" "textmath" "footnotes"))))
+(custom-set-faces
+  ;; custom-set-faces was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ )
+
+
+; custom shotcuts for latex formmulas
+
+(global-set-key (kbd "<f12>") (lambda () (interactive) (insert "\\")))
+(global-set-key (kbd "<f11>") (lambda () (interactive) (insert "{}") (backward-char 1)))
+(global-set-key (kbd "<f10>") (lambda () (interactive) (insert "\\frac{}{}") (backward-char 3)))
+(global-set-key (kbd "<f9>") (lambda () (interactive) (insert "\\sqrt{}") (backward-char 1)))
+(global-set-key (kbd "<f8>") (lambda () (interactive) (insert "\\(\\)") (backward-char 2)))
+(global-set-key (kbd "<f7>") (lambda () (interactive) (insert "\\[\\]") (backward-char 2)))
+
+(global-set-key (kbd "s-<right>") (lambda () (interactive) (insert "\\rightarrow ") ))
+(global-set-key (kbd "s-<left>") (lambda () (interactive) (insert "\\leftarrow ") ))
+(global-set-key (kbd "s-M-<right>") (lambda () (interactive) (insert "\\Rightarrow ") ))
+(global-set-key (kbd "s-M-<left>") (lambda () (interactive) (insert "\\Leftarrow ") ))
+(global-set-key (kbd "s-<down>") (lambda () (interactive) (insert "\\underbrace{}_{}") (backward-char 4)))
+(global-set-key (kbd "s-<up>") (lambda () (interactive) (insert "\\overbrace{}^{}") (backward-char 4)))
+
+(global-set-key (kbd "M-<up>") (lambda () (interactive) (insert "^{}") (backward-char 1)))
+(global-set-key (kbd "M-<down>") (lambda () (interactive) (insert "_{}") (backward-char 1)))
+(global-set-key (kbd "M-<right>") (lambda () (interactive) (insert "\\rangle ") ))
+(global-set-key (kbd "M-<left>") (lambda () (interactive) (insert "\\langle ") ))
+
