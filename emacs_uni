@@ -120,7 +120,8 @@
 ;;(load "preview-latex.el" nil t t)
 ;; aspell ist besser als ispell.
 ;; Zeile kommentieren, falls nicht installiert:
-(setq-default ispell-program-name "aspell")
+;(setq-default ispell-program-name "aspell")
+(setq-default ispell-program-name "ispell")
 ;; Deutsche Rechtschreibung falls \usepackage{ngerman}
 ;; oder german benutzt wird
 (add-hook 'TeX-language-de-hook
@@ -141,8 +142,9 @@
   ;; If there is more than one, they won't work right.
  )
 
-
-; custom shotcuts for latex formmulas
+;;*******************************************************************************
+;;************************* my custom shotcuts for latex formmulas ****************************
+;;*******************************************************************************
 
 (global-set-key (kbd "<f12>") (lambda () (interactive) (insert "\\")))
 (global-set-key (kbd "<f11>") (lambda () (interactive) (insert "{}") (backward-char 1)))
@@ -155,11 +157,11 @@
 (global-set-key (kbd "s-<left>") (lambda () (interactive) (insert "\\leftarrow ") ))
 (global-set-key (kbd "s-M-<right>") (lambda () (interactive) (insert "\\Rightarrow ") ))
 (global-set-key (kbd "s-M-<left>") (lambda () (interactive) (insert "\\Leftarrow ") ))
-(global-set-key (kbd "s-<down>") (lambda () (interactive) (insert "\\underbrace{}_{}") (backward-char 4)))
-(global-set-key (kbd "s-<up>") (lambda () (interactive) (insert "\\overbrace{}^{}") (backward-char 4)))
+(global-set-key (kbd "s-<down>") (lambda () (interactive) (insert "\\underbr{}_{}") (backward-char 4)))
+(global-set-key (kbd "s-<up>") (lambda () (interactive) (insert "\\overbr{}^{}") (backward-char 4)))
 
 (global-set-key (kbd "M-<up>") (lambda () (interactive) (insert "^{}") (backward-char 1)))
 (global-set-key (kbd "M-<down>") (lambda () (interactive) (insert "_{}") (backward-char 1)))
-(global-set-key (kbd "M-<right>") (lambda () (interactive) (insert "\\rangle ") ))
-(global-set-key (kbd "M-<left>") (lambda () (interactive) (insert "\\langle ") ))
+(global-set-key (kbd "M-<right>") (lambda () (interactive) (insert "\\ket{}")(backward-char 1) ))
+(global-set-key (kbd "M-<left>") (lambda () (interactive) (insert "\\bra{}") (backward-char 1)))
 
