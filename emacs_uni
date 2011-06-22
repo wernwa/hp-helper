@@ -91,8 +91,13 @@
 
 ;;For Auctex < 11.82 exchange ";;" in the following 2 lines
 ;;(require 'tex-site)
-(add-to-list 'load-path "/media/DISK/uni/auctex-11.86/")
-(add-to-list 'load-path "/media/DISK/uni/auctex-11.86/preview/")
+;(add-to-list 'load-path "/media/DISK/uni/auctex-11.86/")
+;(add-to-list 'load-path "/media/DISK/uni/auctex-11.86/preview/")
+
+(let ((default-directory "/media/DISK/uni/auctex/lisp/"))
+      (normal-top-level-add-to-load-path '("."))
+      (normal-top-level-add-subdirs-to-load-path))
+
 
 (load "auctex.el" nil t t)
 (load "preview-latex.el" nil t t)
