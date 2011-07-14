@@ -104,8 +104,19 @@
 (setq TeX-auto-save t)
 (setq TeX-parse-self t)
 (setq TeX-PDF-mode t) ;; .pdf statt .dvi per default:
-(setq TeX-view-program-list '(("Kpdf" "kpdf %o")))  ;; PDF Viewer
-(setq TeX-view-program-selection '((output-pdf "Kpdf")))
+;(setq TeX-view-program-list '(("Kpdf" "kpdf %o")))  ;; PDF Viewer
+;(setq TeX-view-program-selection '((output-pdf "Kpdf")))
+;; PDFs per default mit okular öffnen
+  ;(add-to-list 'TeX-output-view-style '("^pdf$" "." "kpdf %o"))
+(add-hook 'TeX-mode-hook
+          (lambda ()
+	         (TeX-source-specials-mode 1)
+		 (add-to-list 'TeX-output-view-style
+		    '("^pdf$" "." "kpdf %o"))
+		 (add-to-list 'TeX-output-view-style
+		    '("^dvi$" "." "kdvi %o")))
+)
+
 ;;Zeilenumbruch
 (add-hook 'LaTeX-mode-hook 'turn-on-auto-fill)
 ;;Syntax Higlight
@@ -146,6 +157,8 @@
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
  )
+
+
 
 ;;*******************************************************************************
 ;;************************* my custom shotcuts for latex formmulas ****************************
