@@ -8,7 +8,7 @@ import binascii
 from time import time
 
 #couch = couchdb.Server('http://localhost:5984/')
-couch = couchdb.Server('http://wernwa:init10@wernwa.couchone.com/')
+couch = couchdb.Server('http://wernwa.nodester.com/')
 
 param = {}
 
